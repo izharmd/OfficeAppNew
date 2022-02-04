@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="base_color">#512178</color>
+    <color name="bar1">#7cb5ec</color>
+    <color name="bar2">#434348</color>
+    <color name="bar3">#ffa500</color>
+    <color name="red_notification">#ed1a2e</color>
+    <color name="red_notification_border">#e84d5c</color>
+    <color name="base_color_reminder">#8064a2</color>
+    <color name="base_color_text">#7058d1</color>
+    <color name="gray">#DDDDDF</color>
+    <color name="gg">#088C08</color>
+    <color name="green">#326e17</color>
+    <color name="red_graph">#951711</color>
+    <color name="blue_graph">#005493</color>
+    <color name="gray_graph">#555555</color>
+    <color name="orange_graph">#ff2600</color>
+    <color name="expanse_base_color">#8164a2</color>
+
+    <color name="white_1">#F2E6E2E2</color>
+
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+
+
+    <color name="green2">#00bd00</color>
+    <color name="purpal">#D382E1</color>
+    <color name="gray_dark">#dcdde1</color>
+    <color name="gray_deep">#818285</color>
+    <color name="gray_deep_text">#818285</color>
+    <color name="light_blue">#6d87dc</color>
+    <color name="light_blue2">#0e81eb</color>
+    <color name="red">#CF522A</color>
+    <color name="blue">#2a3049</color>
+    <color name="view_bg_color">#f5f5f5</color>
+    <color name="light_green">#e6feee</color>
+    <color name="light_yello">#dea807</color>
+    <color name="light_purpal">#D82EF4</color>
+    <color name="transparent">#000000FF</color>
+
+
+
+
+    <color name="blackLight1">#1a1a1a</color>
+    <color name="blackLight2">#262626</color>
+    <color name="blackLight3">#333333</color>
+    <color name="blackLight4">#404040</color>
+
+    <color name="transparant">@android:color/transparent</color>
+
+    <color name="whiteDark1">#f2f2f2</color>
+    <color name="whiteDark10">#808080</color>
+    <color name="whiteDark2">#e6e6e6</color>
+    <color name="whiteDark3">#d9d9d9</color>
+    <color name="whiteDark4">#cccccc</color>
+    <color name="whiteDark5">#bfbfbf</color>
+    <color name="whiteDark6">#b3b3b3</color>
+    <color name="whiteDark7">#a6a6a6</color>
+    <color name="whiteDark8">#999999</color>
+    <color name="whiteDark9">#8c8c8c</color>
+    <declare-styleable name="MyDynamicCalendar"/>
+    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+</resources>

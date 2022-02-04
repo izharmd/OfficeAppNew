@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolba_reminder"></include>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@color/base_color"
+        android:gravity="center"
+        android:text="My Job Calendar"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"/>
+
+
+
+    <com.bws.officeapp.Lirary.MyDynamicCalendar
+        android:id="@+id/myCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.bws.officeapp.Lirary.MyDynamicCalendar>
+    </LinearLayout>
+
+
