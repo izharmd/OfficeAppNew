@@ -89,12 +89,13 @@ class ProjectStatusActvity : AppCompatActivity() {
                             R.drawable.line_divider
                         )
                     recyProjectStatus.addItemDecoration(DividerItemDecoration(dividerDrawable))
-
                     val adapter = ProjectStatusAdapter(it)
                     recyProjectStatus.adapter = adapter
                     adapter.notifyDataSetChanged()
 
                     loadingDialog.dismiss()
+
+                   // clearViewModel()
                 }
                 is Response.Error -> {
                     loadingDialog.dismiss()
@@ -107,4 +108,10 @@ class ProjectStatusActvity : AppCompatActivity() {
         //BACK TO PREVIOUS ACTIVITY
         MyPopUpMenu().backToActivity(this, imvBack)
     }
+
+    //CLEAR VIEW MODEL IF LIVE DATA IS AVAILABLE
+    fun clearViewModel() {
+        this.viewModelStore.clear()
+    }
+
 }

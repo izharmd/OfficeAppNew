@@ -77,6 +77,7 @@ class DailyTimeSheetActivity : AppCompatActivity()/*, AdapterView.OnItemSelected
 
     var totalWorkingMinutes = ""
     var totalOverTimeMinutes = ""
+    var isValidTime = true
 
     lateinit var sharedPreference: SharedPreference
 
@@ -145,24 +146,29 @@ class DailyTimeSheetActivity : AppCompatActivity()/*, AdapterView.OnItemSelected
             val hours = minutes / 60
             val mint = minutes % 60
 
-            totalWorkingMinutes = minutes.toString()
+            if(hours >= 0) {
+                 isValidTime = true
 
-            val workingTime = 9 * 60
+                totalWorkingMinutes = minutes.toString()
+                val workingTime = 9 * 60
+                binding.txtTotalWorkingTime.text =
+                    hours.toString() + " h " + mint.toString() + " min"
+                if (minutes > workingTime) {
+                    val overTime = minutes.toInt() - workingTime
+                    val overTimeHours = overTime / 60
+                    val overTimeMinutes = overTime % 60
 
-            binding.txtTotalWorkingTime.text = hours.toString() + " h " + mint.toString() + " min"
+                    totalOverTimeMinutes = overTimeMinutes.toString()
+                    System.out.println("OVER TIME==" + totalOverTimeMinutes)
+                    binding.txtOverTime.text =
+                        overTimeHours.toString() + " h " + overTimeMinutes + " min"
 
-            if (minutes > workingTime) {
-                val overTime = minutes.toInt() - workingTime
-                val overTimeHours = overTime / 60
-                val overTimeMinutes = overTime % 60
-
-                totalOverTimeMinutes = overTimeMinutes.toString()
-                System.out.println("OVER TIME==" + totalOverTimeMinutes)
-                binding.txtOverTime.text =
-                    overTimeHours.toString() + " h " + overTimeMinutes + " min"
-
-            } else {
-                binding.txtOverTime.text = "00"
+                } else {
+                    binding.txtOverTime.text = "00"
+                }
+            }else{
+                 isValidTime = false
+                ToastMessage.message(this,"Not a valid time")
             }
         }
         binding.txtDayEndTime.setOnClickListener() {
@@ -221,77 +227,80 @@ class DailyTimeSheetActivity : AppCompatActivity()/*, AdapterView.OnItemSelected
 
         binding.btnSave.setOnClickListener() {
 
-            if (totalWorkingMinutes == "") {
-                totalWorkingMinutes = "9"
-            }
-            if (totalOverTimeMinutes == "") {
-                totalOverTimeMinutes = "0"
-            }
+            if (isValidTime == true) {
 
-            val originalFormat = SimpleDateFormat("dd-MM-yyyy")
-            val targetFormat = SimpleDateFormat("MM.dd.yyyy")
-            var date: Date
-            try {
-                date = originalFormat.parse(txtDate.text.toString())
-                println("Old Format :   " + originalFormat.format(date))
-                println("New Format :   " + targetFormat.format(date))
-
-                var dt = targetFormat.format(date).toString()
-                println("New Format :   " + dt)
-
-                startDate = DateUtils.toSimpleString(date)
-            } catch (ex: ParseException) {
-                // Handle Exception.
-            }
-
-
-            val pram = Param.PramDailyTimeSheetDetails(
-                sharedPreference.getValueString("KEY_USER_ID").toString(),
-                projectStatusID, //===========
-                projectID,
-                startDate,
-                binding.txtDayStartTime.text.toString(),
-                binding.txtDayEndTime.text.toString(),
-                totalWorkingMinutes,
-                totalOverTimeMinutes   //======
-            )
-
-            System.out.println("PRAM===" + pram.toString())
-
-            val dailyTimeSheetVM = ViewModelProvider(
-                this,
-                TimeSheetFactory(
-                    TimeSheetRepo(
-                        RetrofitHelper.getInstance().create(ApiInterface::class.java), pram
-                    ), this
-                )
-            ).get(TimesheetViewModel::class.java)
-
-            val loadingDialog = LoadingDialog.progressDialog(this)
-            dailyTimeSheetVM.liveData.observe(this, Observer {
-
-                when (it) {
-                    is Response.NoInternet -> {
-                        loadingDialog.dismiss()
-                        clearViewModel()
-                    }
-
-                    is Response.Loading -> {
-                        loadingDialog.show()
-                    }
-
-                    is Response.Success -> {
-                        loadingDialog.dismiss()
-                        ToastMessage.message(this, it.data?.sMessage.toString())
-                        clearViewModel()
-                    }
-
-                    is Response.Error -> {
-                        loadingDialog.dismiss()
-                        clearViewModel()
-                    }
+                if (totalWorkingMinutes == "") {
+                    totalWorkingMinutes = "9"
                 }
-            })
+                if (totalOverTimeMinutes == "") {
+                    totalOverTimeMinutes = "0"
+                }
+
+                val originalFormat = SimpleDateFormat("dd-MM-yyyy")
+                val targetFormat = SimpleDateFormat("MM.dd.yyyy")
+                var date: Date
+                try {
+                    date = originalFormat.parse(txtDate.text.toString())
+                    println("Old Format :   " + originalFormat.format(date))
+                    println("New Format :   " + targetFormat.format(date))
+
+                    var dt = targetFormat.format(date).toString()
+                    println("New Format :   " + dt)
+
+                    startDate = DateUtils.toSimpleString(date)
+                } catch (ex: ParseException) {
+                    // Handle Exception.
+                }
+
+
+                val pram = Param.PramDailyTimeSheetDetails(
+                    sharedPreference.getValueString("KEY_USER_ID").toString(),
+                    projectStatusID, //===========
+                    projectID,
+                    startDate,
+                    binding.txtDayStartTime.text.toString(),
+                    binding.txtDayEndTime.text.toString(),
+                    totalWorkingMinutes,
+                    totalOverTimeMinutes   //======
+                )
+
+                System.out.println("PRAM===" + pram.toString())
+
+                val dailyTimeSheetVM = ViewModelProvider(
+                    this,
+                    TimeSheetFactory(
+                        TimeSheetRepo(
+                            RetrofitHelper.getInstance().create(ApiInterface::class.java), pram
+                        ), this
+                    )
+                ).get(TimesheetViewModel::class.java)
+
+                val loadingDialog = LoadingDialog.progressDialog(this)
+                dailyTimeSheetVM.liveData.observe(this, Observer {
+
+                    when (it) {
+                        is Response.NoInternet -> {
+                            loadingDialog.dismiss()
+                            clearViewModel()
+                        }
+
+                        is Response.Loading -> {
+                            loadingDialog.show()
+                        }
+
+                        is Response.Success -> {
+                            loadingDialog.dismiss()
+                            ToastMessage.message(this, it.data?.sMessage.toString())
+                            clearViewModel()
+                        }
+
+                        is Response.Error -> {
+                            loadingDialog.dismiss()
+                            clearViewModel()
+                        }
+                    }
+                })
+            }
         }
 
     }

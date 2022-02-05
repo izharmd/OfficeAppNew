@@ -206,6 +206,7 @@
 
 
             <TextView
+                android:id="@+id/txtCancel"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_weight="1"

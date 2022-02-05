@@ -61,7 +61,10 @@ class AddProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_project)
         supportActionBar?.hide()
-        textUserName.text = resources.getText(R.string.WELCOME_TO_TIME_SHEET_APP)
+        DateHeader().dateToHeader(
+            this, textDate, textUserName,
+            resources.getText(R.string.WELCOME_TO_LEAVE_APP).toString()
+        )
 
         sharePfre = SharedPreference(this)
         initView()
@@ -95,11 +98,15 @@ class AddProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     private fun clickEvent() {
 
+        binding.txtCancel.setOnClickListener() {
+            finish()
+        }
+
         binding.txtStartDate.setOnClickListener() {
             Common().dateDialog(this, binding.txtStartDate)
         }
         binding.txtAgreedDeliveryDate.setOnClickListener() {
-           // Common().dateDialog(this, binding.txtAgreedDeliveryDate)
+            // Common().dateDialog(this, binding.txtAgreedDeliveryDate)
 
             calendar = Calendar.getInstance()
             _year = calendar.get(Calendar.YEAR)
@@ -112,11 +119,21 @@ class AddProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 val myFormat = "dd-MM-yyyy"
                 val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
 
-                binding.txtAgreedDeliveryDate.text = sdf.format(calendar.time)
-                calculateAgreedTime(
-                    binding.txtStartDate.text.toString(),
-                    binding.txtAgreedDeliveryDate.text.toString()
-                )
+
+                val date =
+                    SimpleDateFormat("dd-MM-yyyy").parse(binding.txtStartDate.text.toString())
+                val date2 = SimpleDateFormat("dd-MM-yyyy").parse(sdf.format(calendar.time))
+                if (date.before(date2) || date.equals(date2)) {
+                    binding.txtAgreedDeliveryDate.text = sdf.format(calendar.time)
+                    calculateAgreedTime(
+                        binding.txtStartDate.text.toString(),
+                        binding.txtAgreedDeliveryDate.text.toString()
+                    )
+                } else {
+                    ToastMessage.message(this, "Select valid date")
+                }
+
+
             }, calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH])
             //dialog.datePicker.minDate = calendar.timeInMillis
             // calendar.add(Calendar.YEAR, 0)
@@ -127,59 +144,62 @@ class AddProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
 
         binding.txtSave.setOnClickListener() {
-            val originalFormat = SimpleDateFormat("dd-MM-yyyy")
-            var sDate: Date
-            var dDate: Date
-            try {
-                sDate = originalFormat.parse(binding.txtStartDate.text.toString())
-                dDate = originalFormat.parse(binding.txtAgreedDeliveryDate.text.toString())
-                val startDate = DateUtils.toSimpleString(sDate)
-                val deliveryDate = DateUtils.toSimpleString(dDate)
-                val prm = Param.PramAddProject(
-                    deliveryDate,
-                    totalMinutes,
-                    userListID,
-                    strProjectId,
-                    startDate,
-                    sharePfre.getValueString("KEY_USER_ID").toString()
-                )
-                val jsonString = Gson().toJson(prm)
-                System.out.println("JSON==" + jsonString)
 
-                val api = RetrofitHelper.getInstance().create(ApiInterface::class.java)
+            val isAllCheck = CheckAllFields()
+            if (isAllCheck) {
 
-                val addProjectVM =
-                    ViewModelProvider(
-                        this,
-                        AddProjectFactory(AddProjectRepo(api, prm), this)
-                    ).get(
-                        AddProjectViewModel::class.java
+                val originalFormat = SimpleDateFormat("dd-MM-yyyy")
+                var sDate: Date
+                var dDate: Date
+                try {
+                    sDate = originalFormat.parse(binding.txtStartDate.text.toString())
+                    dDate = originalFormat.parse(binding.txtAgreedDeliveryDate.text.toString())
+                    val startDate = DateUtils.toSimpleString(sDate)
+                    val deliveryDate = DateUtils.toSimpleString(dDate)
+                    val prm = Param.PramAddProject(
+                        deliveryDate,
+                        totalMinutes,
+                        userListID,
+                        strProjectId,
+                        startDate,
+                        sharePfre.getValueString("KEY_USER_ID").toString()
                     )
+                    val jsonString = Gson().toJson(prm)
+                    System.out.println("JSON==" + jsonString)
 
-                val loadingDialog = LoadingDialog.progressDialog(this)
+                    val api = RetrofitHelper.getInstance().create(ApiInterface::class.java)
 
-                addProjectVM.liveData.observe(this, Observer {
-                    when (it) {
-                        is Response.NoInternet -> {
-                            ToastMessage.message(this, it.noInternetMessage.toString())
-                        }
-                        is Response.Loading -> {
-                            loadingDialog.show()
-                        }
-                        is Response.Success -> {
-                            ToastMessage.message(this, it.data?.sMessage.toString())
-                            loadingDialog.dismiss()
-                        }
-                        is Response.Error -> {
-                            ToastMessage.message(this, it.errorMessage.toString())
-                            loadingDialog.dismiss()
-                        }
-                    }
-                })
+                    val addProjectVM =
+                        ViewModelProvider(
+                            this,
+                            AddProjectFactory(AddProjectRepo(api, prm), this)
+                        ).get(
+                            AddProjectViewModel::class.java
+                        )
 
+                    val loadingDialog = LoadingDialog.progressDialog(this)
 
-            } catch (ex: ParseException) {
-                // Handle Exception.
+                    addProjectVM.liveData.observe(this, Observer {
+                        when (it) {
+                            is Response.NoInternet -> {
+                                ToastMessage.message(this, it.noInternetMessage.toString())
+                            }
+                            is Response.Loading -> {
+                                loadingDialog.show()
+                            }
+                            is Response.Success -> {
+                                ToastMessage.message(this, it.data?.sMessage.toString())
+                                loadingDialog.dismiss()
+                            }
+                            is Response.Error -> {
+                                ToastMessage.message(this, it.errorMessage.toString())
+                                loadingDialog.dismiss()
+                            }
+                        }
+                    })
+                } catch (ex: ParseException) {
+                    // Handle Exception.
+                }
             }
         }
     }
@@ -263,14 +283,19 @@ class AddProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             SearchableMultiSelectSpinner.show(this, "Search Employee", "Done", userList, object :
                 SelectionCompleteListener {
                 override fun onCompleteSelection(selectedItems: ArrayList<SearchableItem>) {
-                    println("DATA====" + selectedItems.toString())
+
                     var arr = ArrayList<String>()
                     for (i in 0..selectedItems.size - 1) {
                         val itm = selectedItems.get(i)
                         arr.add(itm.text)
                     }
                     var str = arr.toString()
-                    binding.txtAllocatedTo.text = str
+
+
+                    var myPiece = str.substring(1, str.length - 1)
+
+                    binding.txtAllocatedTo.text = myPiece
+
                     for (i in 0..arr.size - 1) {
                         val userID = arrMap.get(arr.get(i))
                         val lst = Param.Allocatedlist(userID.toString())
@@ -281,9 +306,9 @@ class AddProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
 
         //Use for side popup menu
-        MyPopUpMenu().populateMenuLeave(this,imv_Shutdown)
+        MyPopUpMenu().populateMenuLeave(this, imv_Shutdown)
         //BACK TO PREVIOUS ACTIVITY
-        MyPopUpMenu().backToActivity(this,imvBack)
+        MyPopUpMenu().backToActivity(this, imvBack)
 
     }
 
@@ -321,6 +346,23 @@ class AddProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             val format = SimpleDateFormat("yyyy.MM.dd")
             return format.format(date)
         }
+    }
+
+    fun CheckAllFields(): Boolean {
+        if (binding.txtAllocatedTo.text == "Select") {
+            ToastMessage.message(this, "Please select allocated to")
+            return false
+        }
+        if (binding.txtStartDate.length() == 0) {
+            ToastMessage.message(this, "Please select start date")
+            return false
+        }
+
+        if (binding.txtAgreedDeliveryDate.length() === 0) {
+            ToastMessage.message(this, "Please select agreed date")
+            return false
+        }
+        return true
     }
 
 }

@@ -34,7 +34,5 @@ class Common {
        // dialog.datePicker.maxDate = calendar.timeInMillis
         dialog.show()
     }
-    fun tx(){
 
-    }
 }

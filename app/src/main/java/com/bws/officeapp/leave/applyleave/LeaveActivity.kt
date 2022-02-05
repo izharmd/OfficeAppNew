@@ -53,20 +53,24 @@ class LeaveActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     var leaveFromDate = ""
     var leaveToDate = ""
 
-    private var year = 0
-    private var month = 0
-    private var day = 0
+    var _year = 0
+    var _month = 0
+    var _day = 0
     private lateinit var calendar: Calendar
+    var isValid_Date = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_leave)
         supportActionBar?.hide()
-        DateHeader().dateToHeader(this, textDate, textUserName,
+        DateHeader().dateToHeader(
+            this, textDate, textUserName,
             resources.getText(R.string.WELCOME_TO_LEAVE_APP).toString()
         )
         sharePref = SharedPreference(this)
         calendar = Calendar.getInstance()
+
+
 
         initView()
 
@@ -99,61 +103,57 @@ class LeaveActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private fun clickEvent() {
 
         binding.txtFromDate.setOnClickListener {
-           Common().dateDialog(this,binding.txtFromDate)
-          //  binding.txtFromDate.text = dt
+            Common().dateDialog(this, binding.txtFromDate)
+            //  binding.txtFromDate.text = dt
 
-           /* year = calendar.get(Calendar.YEAR)
-            month = calendar.get(Calendar.MONTH)
-            day = calendar.get(Calendar.DAY_OF_MONTH)
-            val dialog = DatePickerDialog(this, { _, year, month, day_of_month ->
-                calendar[Calendar.YEAR] = year
-                calendar[Calendar.MONTH] = month - 1
-                calendar[Calendar.DAY_OF_MONTH] = day_of_month
-                val myFormat = "dd-MM-yyyy"
-                val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-                binding.txtFromDate.text = sdf.format(calendar.time)
-            }, calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH])
-           // dialog.datePicker.minDate = calendar.timeInMillis
-           // calendar.add(Calendar.YEAR, 0)
-           // dialog.datePicker.maxDate = calendar.timeInMillis
-            dialog.show()*/
+            /* year = calendar.get(Calendar.YEAR)
+             month = calendar.get(Calendar.MONTH)
+             day = calendar.get(Calendar.DAY_OF_MONTH)
+             val dialog = DatePickerDialog(this, { _, year, month, day_of_month ->
+                 calendar[Calendar.YEAR] = year
+                 calendar[Calendar.MONTH] = month - 1
+                 calendar[Calendar.DAY_OF_MONTH] = day_of_month
+                 val myFormat = "dd-MM-yyyy"
+                 val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
+                 binding.txtFromDate.text = sdf.format(calendar.time)
+             }, calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH])
+            // dialog.datePicker.minDate = calendar.timeInMillis
+            // calendar.add(Calendar.YEAR, 0)
+            // dialog.datePicker.maxDate = calendar.timeInMillis
+             dialog.show()*/
         }
 
         binding.txtToDate.setOnClickListener {
-            Common().dateDialog(this,binding.txtToDate)
 
-            /*val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH)
-            val formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH)
-            val date = LocalDate.parse(binding.txtFromDate.toString(), formatter)
-            val date1 = LocalDate.parse(binding.txtToDate.toString(), formatter1)
+            calendar = Calendar.getInstance()
+            _year = calendar.get(Calendar.YEAR)
+            _month = calendar.get(Calendar.MONTH)
+            _day = calendar.get(Calendar.DAY_OF_MONTH)
+            val dialog = DatePickerDialog(this, { _, year, month, day_of_month ->
+                calendar[Calendar.YEAR] = year
+                calendar[Calendar.MONTH] = month
+                calendar[Calendar.DAY_OF_MONTH] = day_of_month
+                val myFormat = "dd-MM-yyyy"
+                val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
 
-            if (date.isBefore(date1)){
-                ToastMessage.message(this,"gggggg")
-            }*/
-
-
-
-         /*   val c = Calendar.getInstance()
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
-            val dpd = DatePickerDialog(
-                this,
-                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    binding.txtToDate.text = "" + dayOfMonth + "-" + month + 1 + "-" + year
-                },
-                year,
-                month,
-                day
-            )
-            dpd.show()*/
+                val date = SimpleDateFormat("dd-MM-yyyy").parse(binding.txtFromDate.text.toString())
+                val date2 = SimpleDateFormat("dd-MM-yyyy").parse(sdf.format(calendar.time))
+                if (date.before(date2)|| date.equals(date2)) {
+                    binding.txtToDate.text = sdf.format(calendar.time)
+                    isValid_Date = true
+                } else {
+                    ToastMessage.message(this, "Select valid date")
+                    isValid_Date = true
+                }
+            }, calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH])
+            dialog.show()
 
         }
         binding.btnApplyLeave.setOnClickListener() {
             val isAllCheck = CheckAllFields()
-             if (isAllCheck) {
-                 applyLeave()
-             }
+            if (isAllCheck) {
+                applyLeave()
+            }
         }
     }
 
@@ -248,9 +248,9 @@ class LeaveActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         spToDate!!.setAdapter(adapterToDate)
 
         //Use for side popup menu
-        MyPopUpMenu().populateMenuLeave(this,imv_Shutdown)
+        MyPopUpMenu().populateMenuLeave(this, imv_Shutdown)
         //BACK TO PREVIOUS ACTIVITY
-        MyPopUpMenu().backToActivity(this,imvBack)
+        MyPopUpMenu().backToActivity(this, imvBack)
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -293,19 +293,18 @@ class LeaveActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     fun CheckAllFields(): Boolean {
         if (binding.txtFromDate.length() == 0) {
-           ToastMessage.message(this,"Please select from date")
+            ToastMessage.message(this, "Please select from date")
             return false
         }
         if (binding.txtToDate.length() == 0) {
-            ToastMessage.message(this,"Please select to date")
+            ToastMessage.message(this, "Please select to date")
             return false
         }
 
         if (binding.edtReason.length() === 0) {
-            ToastMessage.message(this,"Please enter reason")
+            ToastMessage.message(this, "Please enter reason")
             return false
         }
-        // after all validation return true.
         return true
     }
 }

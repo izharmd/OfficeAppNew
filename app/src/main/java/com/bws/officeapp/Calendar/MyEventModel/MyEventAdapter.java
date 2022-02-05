@@ -42,9 +42,8 @@ public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.ViewHold
 
         if (status.equalsIgnoreCase("Completed")) {
             holder.txtProjectStatus.setTextColor(context.getResources().getColor(R.color.green));
-        } else {
+        } else if(status.equalsIgnoreCase("InProgress")){
             holder.txtProjectStatus.setTextColor(context.getResources().getColor(R.color.red_graph));
-            //  holder.imageView.setBackgroundColor(Color.parseColor("#FFFAF8FD"));
         }
 
     }
@@ -65,6 +64,4 @@ public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.ViewHold
             txtProjectStatus = itemView.findViewById(R.id.txtProjectStatus);
         }
     }
-
-
 }

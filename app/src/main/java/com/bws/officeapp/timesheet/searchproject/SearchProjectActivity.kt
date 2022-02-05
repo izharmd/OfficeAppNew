@@ -53,6 +53,13 @@ class SearchProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
 
     lateinit var sharePref:SharedPreference
 
+    var _year = 0
+    var _month = 0
+    var _day = 0
+    private lateinit var calendar: Calendar
+
+    var isValid_Date = true
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,15 +82,38 @@ class SearchProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
 
         arrProjectStatus.add("InProgress")
         arrProjectStatus.add("Completed")
-        arrProjectStatus.add("Not Completed")
+        //arrProjectStatus.add("Not Completed")
 
         initView()
 
-        txtDateFrom.setOnClickListener() {
+        binding.txtDateFrom.setOnClickListener() {
             Common().dateDialog(this, binding.txtDateFrom)
         }
-        txtDateTo.setOnClickListener() {
-            Common().dateDialog(this, binding.txtDateTo)
+        binding.txtDateTo.setOnClickListener() {
+            calendar = Calendar.getInstance()
+            _year = calendar.get(Calendar.YEAR)
+            _month = calendar.get(Calendar.MONTH)
+            _day = calendar.get(Calendar.DAY_OF_MONTH)
+            val dialog = DatePickerDialog(this, { _, year, month, day_of_month ->
+                calendar[Calendar.YEAR] = year
+                calendar[Calendar.MONTH] = month
+                calendar[Calendar.DAY_OF_MONTH] = day_of_month
+                val myFormat = "dd-MM-yyyy"
+                val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
+
+
+                val date = SimpleDateFormat("dd-MM-yyyy").parse(binding.txtDateFrom.text.toString())
+                val date2 = SimpleDateFormat("dd-MM-yyyy").parse(sdf.format(calendar.time))
+                if (date.before(date2)|| date.equals(date2)) {
+                    binding.txtDateTo.text = sdf.format(calendar.time)
+                     isValid_Date = true
+                } else {
+                    isValid_Date = false
+                    ToastMessage.message(this, "Select valid date")
+                }
+            }, calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH])
+
+            dialog.show()
         }
 
         txtSearch.setOnClickListener() {
@@ -120,6 +150,8 @@ class SearchProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
                             val intent = Intent(this, ProjectListActivity::class.java)
                             intent.putExtra("RESULT", gson.toJson(result).toString())
                             startActivity(intent)
+
+                            clearViewModel()
                         }
                         is Response.Error -> {
                             ToastMessage.message(this, it.errorMessage.toString())
@@ -164,6 +196,7 @@ class SearchProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
                             val intent = Intent(this, ProjectListActivity::class.java)
                             intent.putExtra("RESULT", gson.toJson(result).toString())
                             startActivity(intent)
+                            clearViewModel()
                         }
                         is Response.Error -> {
                             ToastMessage.message(this, it.errorMessage.toString())
@@ -175,7 +208,7 @@ class SearchProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
 
             }
 
-            else if(itemSearchCategory == "By Date Range"){
+            else if(itemSearchCategory == "By Date Range" ){
 
                 val originalFormat = SimpleDateFormat("dd-MM-yyyy")
                 var dateFrom: Date
@@ -221,6 +254,7 @@ class SearchProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
                             val intent = Intent(this, ProjectListActivity::class.java)
                             intent.putExtra("RESULT", gson.toJson(result).toString())
                             startActivity(intent)
+                            clearViewModel()
                         }
                         is Response.Error -> {
                             ToastMessage.message(this, it.errorMessage.toString())
@@ -261,6 +295,15 @@ class SearchProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
     }
 
     private fun initView() {
+
+
+        val sdf = SimpleDateFormat("dd-MM-yyyy")
+        val currentDate1 = sdf.format(Date())
+        binding.txtDateFrom.text = currentDate1.toString()
+        binding.txtDateTo.text = currentDate1.toString()
+
+
+
         val pramProjectList = Param.PramProjectList("ProjectList")
         val api = RetrofitHelper.getInstance().create(ApiInterface::class.java)
         val projectListVM =

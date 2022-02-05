@@ -279,6 +279,7 @@
 
                 </LinearLayout>
 
+
                 <TextView
                     android:id="@+id/txtToDate"
                     android:layout_width="match_parent"
@@ -292,7 +293,6 @@
                     android:paddingRight="@dimen/_5sdp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
-
 
                 <TextView
                     android:layout_width="match_parent"

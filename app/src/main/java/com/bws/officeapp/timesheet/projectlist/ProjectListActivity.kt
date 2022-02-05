@@ -48,7 +48,7 @@ class ProjectListActivity : AppCompatActivity() {
                 val pTotalTime:String = jsonobject.getString("TotalTime")
                 val agTime:String = jsonobject.getString("AgreedTime")
                 val totaltime = timeConvert(pTotalTime.toUInt().toInt())
-                val agreedTime = timeConvert(agTime.toUInt().toInt())
+                val agreedTime = timeConvert_2(agTime.toUInt().toInt())
                 data.add(
                     ProjectListModel(
                         jsonobject.getString("ProjectName"),
@@ -85,10 +85,19 @@ class ProjectListActivity : AppCompatActivity() {
 
     fun timeConvert(time: Int): String? {
         var t = ""
+        val d = time / (9 * 60)
+        val h = time % (9 * 60) / 60
+        val m = time % (9 * 60) % 60
+         t =  d.toString() +" Days "+ h.toString() +" Hours " /*+ m.toString() +"Min"*/
+        return t
+    }
+
+    fun timeConvert_2(time: Int): String? {
+        var t = ""
         val d = time / (24 * 60)
         val h = time % (24 * 60) / 60
         val m = time % (24 * 60) % 60
-        t =  d.toString() +" Days "+ h.toString() +" Hours"
+        t =  d.toString() +" Days "+ h.toString() +" Hours " /*+ m.toString() +"Min"*/
         return t
     }
 }

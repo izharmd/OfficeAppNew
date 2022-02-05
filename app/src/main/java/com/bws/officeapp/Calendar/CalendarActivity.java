@@ -37,7 +37,9 @@ import com.bws.officeapp.Lirary.GetEventListListener;
 import com.bws.officeapp.Lirary.MyDynamicCalendar;
 import com.bws.officeapp.Lirary.OnDateClickListener;
 import com.bws.officeapp.R;
+import com.bws.officeapp.expense.utils.MyPopUpMenu;
 import com.bws.officeapp.utils.Common;
+import com.bws.officeapp.utils.DateHeader;
 import com.bws.officeapp.utils.LoadingDialog;
 import com.bws.officeapp.utils.SharedPreference;
 import com.loopj.android.http.AsyncHttpClient;
@@ -64,6 +66,8 @@ public class CalendarActivity extends AppCompatActivity {
     private MyDynamicCalendar myCalendar;
 
 
+    TextView textUserName,textDate;
+    ImageView imv_Shutdown,imvBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +75,18 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.calendar_activity);
         myCalendar = (MyDynamicCalendar) findViewById(R.id.myCalendar);
         myCalendar.showMonthViewWithBelowEvents();
+
+        textUserName = findViewById(R.id.textUserName);
+        textDate = findViewById(R.id.textDate);
+        imv_Shutdown = findViewById(R.id.imv_Shutdown);
+        imvBack = findViewById(R.id.imvBack);
+
+        MyPopUpMenu myPopUpMenu = new MyPopUpMenu();
+        myPopUpMenu.populateMenuLeave(this,imv_Shutdown);
+        myPopUpMenu.backToActivity(this,imvBack);
+
+        DateHeader dateHeader = new DateHeader();
+        dateHeader.dateToHeader(this,textDate,textUserName, "Welcome To Office App");
 /*
         myCalendar.addEvent("05-02-2022", "10-02-2022","8:40", "8:30", "Goya Sports","Completed");
         myCalendar.addEvent("05-02-2022","10-02-2022", "8:30", "8:45", "AEML AUS","Not Completed");
@@ -137,6 +153,7 @@ public class CalendarActivity extends AppCompatActivity {
                     String status = object.getString("sStatus");
                     String msg = object.getString("sMessage");
 
+
                     if (status.equalsIgnoreCase("SUCCESS")) {
                         JSONObject objData = object.getJSONObject("data");
 
@@ -162,8 +179,12 @@ public class CalendarActivity extends AppCompatActivity {
 
                                 myCalendar.showMonthViewWithBelowEvents();
 
-                                myCalendar.addEvent(startDate, endDate, "8:40", "8:30", pName, "Completed");
-
+                                String pStatus = jsonObject1.getString("ProjectStatus");
+                                if(pStatus == null){
+                                    myCalendar.addEvent(startDate, endDate, "8:40", "8:30", pName, "");
+                                }else {
+                                    myCalendar.addEvent(startDate, endDate, "8:40", "8:30", pName, pStatus);
+                                }
 
                                 myCalendar.setBelowMonthEventTextColor("#425684");
 //        myCalendar.setBelowMonthEventTextColor(R.color.black);
