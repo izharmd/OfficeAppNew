@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.bws.officeapp.login.LoginActivity
+import com.bws.officeapp.login.LoginTestActivity
 import com.bws.officeapp.utils.SharedPreference
 
 class SplashActivity:AppCompatActivity() {
@@ -16,15 +17,13 @@ class SplashActivity:AppCompatActivity() {
         setContentView(R.layout.activity_spalsh)
         //supportActionBar?.hide()
 
-
-
         sharePfre = SharedPreference(this)
 
         Handler().postDelayed(
             {
                 val isLogIn = sharePfre.getValueBoolean("IS_LOGIN",false)
                 if(isLogIn == false) {
-                    val i = Intent(this@SplashActivity, LoginActivity::class.java)
+                    val i = Intent(this@SplashActivity, LoginTestActivity::class.java)
                     startActivity(i)
                     finish()
                 }else{

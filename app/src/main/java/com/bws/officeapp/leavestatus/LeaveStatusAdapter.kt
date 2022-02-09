@@ -60,8 +60,10 @@ class LeaveStatusAdapter(val activity: Activity, val mList: Response<LeaveStatus
 
         val str = itemLeave?.ApprovalStatus
         if (str?.equals("Pending") == true) {
+            holder.txtLeaveStatus.setTextColor(Color.parseColor("#ebc034"));
+        } else if(str?.equals("Rejected") == true){
             holder.txtLeaveStatus.setTextColor(Color.parseColor("#ed1a2e"));
-        } else {
+        }else {
             holder.txtLeaveStatus.setTextColor(Color.parseColor("#088C08"));
         }
 

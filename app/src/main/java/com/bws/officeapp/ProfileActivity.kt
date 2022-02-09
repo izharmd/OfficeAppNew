@@ -18,7 +18,8 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile2)
         supportActionBar?.hide()
-        DateHeader().dateToHeader(this, textDate, textUserName,
+        DateHeader().dateToHeader(
+            this, textDate, textUserName,
             resources.getText(R.string.WELCOME_TO_LEAVE_APP).toString()
         )
         sharePref = SharedPreference(this)
@@ -30,12 +31,14 @@ class ProfileActivity : AppCompatActivity() {
             )
         binding.txtEmpId.text = sharePref.getValueString("KEY_USER_ID")
         binding.txtDesignation.text = sharePref.getValueString("KEY_DESIGNATION")
-        // binding.txtDateOfJoining.text = sharePref.getValueString("")
+        binding.txtDateOfJoining.text = sharePref.getValueString("KEY_DOJ")
         binding.txtEmail.text = sharePref.getValueString("KEY_EMAIL_ID")
         binding.txtDOB.text = sharePref.getValueString("KEY_DOB")
         binding.txtMobileNo.text = sharePref.getValueString("KEY_MOBILE")
 
+        //Use for side popup menu
+        MyPopUpMenu().populateMenuLeave(this,imv_Shutdown)
         //BACK TO PREVIOUS ACTIVITY
-        MyPopUpMenu().backToActivity(this, imvBack)
+        MyPopUpMenu().backToActivity(this,imvBack)
     }
 }

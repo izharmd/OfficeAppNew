@@ -44,6 +44,8 @@ public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.ViewHold
             holder.txtProjectStatus.setTextColor(context.getResources().getColor(R.color.green));
         } else if(status.equalsIgnoreCase("InProgress")){
             holder.txtProjectStatus.setTextColor(context.getResources().getColor(R.color.red_graph));
+        }else {
+            holder.txtProjectStatus.setText("");
         }
 
     }

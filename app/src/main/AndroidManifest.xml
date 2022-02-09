@@ -120,7 +120,11 @@
             android:name=".leave.leaveapprove.LeaveApproveActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".Calendar.CalendarActivity"></activity>
+        <activity android:name=".Calendar.CalendarActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".login.LoginTestActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -17,7 +17,6 @@ class Param {
     //APPLY LEAVE
     data class PramApplyLeave(
         val UserID: String,
-        val LeaveID: String,
         val LeaveCategoryID: String,
         val LeaveFrom: String,
         val IsLeaveFromHalfDay: String,

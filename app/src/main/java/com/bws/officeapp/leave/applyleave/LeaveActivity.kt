@@ -27,6 +27,7 @@ import com.bws.officeapp.timesheet.dailitimesheet.projectstatusviewmodel.Project
 import com.bws.officeapp.timesheet.dailitimesheet.projectstatusviewmodel.ProjectStatusFactory
 import com.bws.officeapp.timesheet.dailitimesheet.projectstatusviewmodel.ProjectStatusRepository
 import com.bws.officeapp.utils.*
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_daily_time_sheet.*
 import kotlinx.android.synthetic.main.activity_leave.*
 import kotlinx.android.synthetic.main.toolba_reminder.*
@@ -174,7 +175,6 @@ class LeaveActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val pramApplyLeave = Param.PramApplyLeave(
             binding.txtEmpId.text.toString(),
             leaveTypeID,
-            "2",
             leaveFromDate,
             IsLeaveFromHalfDay,
             leaveToDate,
@@ -182,6 +182,10 @@ class LeaveActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             binding.edtReason.text.toString(),
             "Y"
         )
+
+        val json = Gson()
+
+        System.out.println("APPLY LEAVE===="+json.toJson(pramApplyLeave))
 
         val applyVM = ViewModelProvider(
             this,
@@ -286,7 +290,7 @@ class LeaveActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     object DateUtils {
         fun toSimpleString(date: Date): String {
-            val format = SimpleDateFormat("MM.dd.yyyy")
+            val format = SimpleDateFormat("yyyy.MM.dd")
             return format.format(date)
         }
     }

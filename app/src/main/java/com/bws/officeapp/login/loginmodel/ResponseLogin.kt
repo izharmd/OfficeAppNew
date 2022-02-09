@@ -18,6 +18,6 @@ data class Data(
     val DOB: String,
     val RoleID: Int,
     val RoleName: String,
-    val MobileNo: Int,
+    val MobileNo: String,
     val DOJ: String,
 )
