@@ -3,6 +3,7 @@ package com.bws.officeapp.utils
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_login.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -14,8 +15,7 @@ class Common {
     private lateinit var calendar: Calendar
 
 
-
-    fun dateDialog(activity: Activity,txt: TextView){
+    fun dateDialog(activity: Activity, txt: TextView) {
         calendar = Calendar.getInstance()
         _year = calendar.get(Calendar.YEAR)
         _month = calendar.get(Calendar.MONTH)
@@ -30,9 +30,19 @@ class Common {
             txt.text = sdf.format(calendar.time)
         }, calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH])
         //dialog.datePicker.minDate = calendar.timeInMillis
-       // calendar.add(Calendar.YEAR, 0)
-       // dialog.datePicker.maxDate = calendar.timeInMillis
+        // calendar.add(Calendar.YEAR, 0)
+        // dialog.datePicker.maxDate = calendar.timeInMillis
         dialog.show()
     }
 
+    fun successDialog(activity: Activity, message: String) {
+        val builder = AlertDialog.Builder(activity)
+        //builder.setTitle("Office App")
+        builder.setMessage(message)
+        builder.setCancelable(false)
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            activity.finish()
+        }
+        builder.show()
+    }
 }

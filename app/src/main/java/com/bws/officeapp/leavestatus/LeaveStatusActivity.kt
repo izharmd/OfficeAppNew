@@ -39,8 +39,54 @@ class LeaveStatusActivity : AppCompatActivity() {
         )
         recyLeaveStatus.layoutManager = LinearLayoutManager(this)
 
-        val pram = Param.PramUserLeaveDetails(sharePref.getValueString("KEY_USER_ID").toString(), "10", "1")
+        val pram = Param.PramUserLeaveDetails(sharePref.getValueString("KEY_USER_ID").toString(), "100", "1")
+        val leaveStatusVM = ViewModelProvider(
+            this,
+            LeaveStatusFactory(
+                LeaveStatusRepo(
+                    RetrofitHelper.getInstance().create(ApiInterface::class.java),
+                    pram
+                ), this
+            )
+        ).get(LeaveStatusViewModel::class.java)
+        val loadingDialog = LoadingDialog.progressDialog(this)
+        leaveStatusVM.liveData.observe(this, Observer {
 
+            when (it) {
+
+                is Response.Loading -> {
+                    loadingDialog.show()
+                }
+                is Response.NoInternet -> {
+                    loadingDialog.dismiss()
+                }
+                is Response.Success -> {
+                    val dividerDrawable =
+                        ContextCompat.getDrawable(this@LeaveStatusActivity, R.drawable.line_divider)
+                    recyLeaveStatus.addItemDecoration(DividerItemDecoration(dividerDrawable))
+                    val adapter = LeaveStatusAdapter(this,it)
+                    recyLeaveStatus.adapter = adapter
+                    adapter.notifyDataSetChanged()
+                    loadingDialog.dismiss()
+                    clearViewModel()
+                }
+                is Response.Error -> {
+                    loadingDialog.dismiss()
+                }
+            }
+        })
+
+        //Use for side popup menu
+        MyPopUpMenu().populateMenuLeave(this,imv_Shutdown)
+        //BACK TO PREVIOUS ACTIVITY
+        MyPopUpMenu().backToActivity(this,imvBack)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val pram = Param.PramUserLeaveDetails(sharePref.getValueString("KEY_USER_ID").toString(), "100", "1")
 
         val leaveStatusVM = ViewModelProvider(
             this,
@@ -75,6 +121,8 @@ class LeaveStatusActivity : AppCompatActivity() {
                     recyLeaveStatus.adapter = adapter
                     adapter.notifyDataSetChanged()
 
+                    clearViewModel()
+
                     loadingDialog.dismiss()
                 }
                 is Response.Error -> {
@@ -82,11 +130,13 @@ class LeaveStatusActivity : AppCompatActivity() {
                 }
             }
         })
-
-        //Use for side popup menu
-        MyPopUpMenu().populateMenuLeave(this,imv_Shutdown)
-        //BACK TO PREVIOUS ACTIVITY
-        MyPopUpMenu().backToActivity(this,imvBack)
-
     }
+
+
+    //CLEAR VIEW MODEL IF LIVE DATA IS AVAILABLE
+    fun clearViewModel() {
+        this.viewModelStore.clear()
+    }
+
+
 }

@@ -92,13 +92,12 @@ class ProjectStatusActvity : AppCompatActivity() {
                     val adapter = ProjectStatusAdapter(it)
                     recyProjectStatus.adapter = adapter
                     adapter.notifyDataSetChanged()
-
                     loadingDialog.dismiss()
-
-                   // clearViewModel()
+                    clearViewModel()
                 }
                 is Response.Error -> {
                     loadingDialog.dismiss()
+                    clearViewModel()
                 }
             }
         })
@@ -112,6 +111,12 @@ class ProjectStatusActvity : AppCompatActivity() {
     //CLEAR VIEW MODEL IF LIVE DATA IS AVAILABLE
     fun clearViewModel() {
         this.viewModelStore.clear()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        callProjectStatus()
     }
 
 }

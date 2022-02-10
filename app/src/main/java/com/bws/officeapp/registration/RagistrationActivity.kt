@@ -1,11 +1,15 @@
 package com.bws.officeapp.registration
 
+
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.DatePicker
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -14,29 +18,22 @@ import com.bws.officeapp.Api.ApiInterface
 import com.bws.officeapp.Api.RetrofitHelper
 import com.bws.officeapp.R
 import com.bws.officeapp.databinding.ActivityRegistrationBinding
-import com.bws.officeapp.leave.applyleave.LeaveActivity
 import com.bws.officeapp.login.LoginActivity
 import com.bws.officeapp.registration.designationviewmodel.DesignationFactory
 import com.bws.officeapp.registration.designationviewmodel.DesignationPram
 import com.bws.officeapp.registration.designationviewmodel.DesignationRepository
 import com.bws.officeapp.registration.designationviewmodel.DesignationViewModel
-import com.bws.officeapp.registration.registrationmodel.*
+import com.bws.officeapp.registration.registrationmodel.PramRegistration
 import com.bws.officeapp.registration.registrationviewmodel.RegistrationFactory
 import com.bws.officeapp.registration.registrationviewmodel.RegistrationRepository
 import com.bws.officeapp.registration.registrationviewmodel.RegistrationViewModel
 import com.bws.officeapp.utils.Common
 import com.bws.officeapp.utils.LoadingDialog
 import com.bws.officeapp.utils.Response
-import com.bws.officeapp.utils.ToastMessage
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_leave.*
-import kotlinx.android.synthetic.main.activity_registration.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
-
-
 import java.util.*
-import kotlin.collections.ArrayList
 
 class RagistrationActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
     DatePickerDialog.OnDateSetListener {
@@ -250,8 +247,9 @@ class RagistrationActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
                             loadingDialog.show()
                         }
                         is Response.Success -> {
-                            Toast.makeText(this, it.data?.sMessage.toString(), Toast.LENGTH_LONG)
-                                .show()
+                            Common().successDialog(this,"Registration successful.")
+                           /* Toast.makeText(this, it.data?.sMessage.toString(), Toast.LENGTH_LONG)
+                                .show()*/
                             loadingDialog.dismiss()
                             clearViewModel()
                         }
@@ -345,5 +343,27 @@ class RagistrationActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             val format = SimpleDateFormat("yyyy.MM.dd")
             return format.format(date)
         }
+    }
+
+
+    fun saturdaysundaycount(d1: Date?, d2: Date?): Int {
+        val c1 = Calendar.getInstance()
+        c1.time = d1
+        val c2 = Calendar.getInstance()
+        c2.time = d2
+        var sundays = 0
+        var saturday = 0
+        while (!c1.after(c2)) {
+            if (c1[Calendar.DAY_OF_WEEK] === Calendar.SATURDAY) {
+                saturday++
+            }
+            if (c1[Calendar.DAY_OF_WEEK] === Calendar.SUNDAY) {
+                sundays++
+            }
+            c1.add(Calendar.DATE, 1)
+        }
+        println("Saturday Count = $saturday")
+        println("Sunday Count = $sundays")
+        return saturday + sundays
     }
 }

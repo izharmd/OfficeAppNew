@@ -257,6 +257,8 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginRight="@dimen/_5sdp"
+                    android:gravity="left|top"
+                    android:paddingLeft="@dimen/_3sdp"
                     android:background="@drawable/round_edit_text" />
 
 

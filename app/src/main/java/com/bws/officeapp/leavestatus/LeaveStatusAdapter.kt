@@ -78,6 +78,7 @@ class LeaveStatusAdapter(val activity: Activity, val mList: Response<LeaveStatus
                 sharePref.saveString("LEAVE_FROM",itemLeave?.LeaveFrom.toString())
                 sharePref.saveString("LEAVE_TO",itemLeave?.LeaveTo.toString())
                 sharePref.saveString("REASON",itemLeave?.Reason.toString())
+                sharePref.saveString("LEAVE_STATUS",itemLeave?.ApprovalStatus.toString())
 
                 context?.startActivity(Intent(context,LeaveApproveActivity::class.java))
             }

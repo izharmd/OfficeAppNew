@@ -1,6 +1,7 @@
 package com.bws.officeapp.policy
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,14 @@ class PolicyAdapter(val mList: ArrayList<PolicyModel>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val policyModel = mList[position]
         holder.txtPolicyDocument.text = policyModel.policy
+
+
+      //  if(position == 0){
+
+            holder.itemView.setOnClickListener(){
+                context?.startActivity(Intent(context,ViewPolicyActivity::class.java))
+            }
+       // }
     }
 
     override fun getItemCount(): Int {

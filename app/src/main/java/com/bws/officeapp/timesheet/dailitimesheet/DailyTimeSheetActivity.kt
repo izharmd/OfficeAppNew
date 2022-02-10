@@ -290,7 +290,8 @@ class DailyTimeSheetActivity : AppCompatActivity()/*, AdapterView.OnItemSelected
 
                         is Response.Success -> {
                             loadingDialog.dismiss()
-                            ToastMessage.message(this, it.data?.sMessage.toString())
+                           // ToastMessage.message(this, it.data?.sMessage.toString())
+                            Common().successDialog(this,"Time Sheet updated successfully")
                             clearViewModel()
                         }
 

@@ -19,6 +19,7 @@ import com.bws.officeapp.Api.RetrofitHelper
 import com.bws.officeapp.ProfileActivity
 import com.bws.officeapp.R
 import com.bws.officeapp.databinding.ActivityAddProjectBinding
+
 import com.bws.officeapp.expense.utils.MyPopUpMenu
 import com.bws.officeapp.timesheet.addproject.assignproject.AddProjectFactory
 import com.bws.officeapp.timesheet.addproject.assignproject.AddProjectRepo
@@ -71,29 +72,7 @@ class AddProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
         clickEvent()
 
-        imv_Shutdown.setOnClickListener {
-            val popupMenu: PopupMenu = PopupMenu(this, imv_Shutdown)
-            popupMenu.menuInflater.inflate(R.menu.menu, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-                when (item.itemId) {
-                    R.id.setting ->
-                        startActivity(
-                            Intent(
-                                applicationContext,
-                                ProfileActivity::class.java
-                            )
-                        )
-                    R.id.logOut ->
-                        Log.d("qwe", "qewrt");
-                }
-                true
-            })
-            popupMenu.show()
-        }
 
-        imvBack.setOnClickListener() {
-            finish()
-        }
     }
 
     private fun clickEvent() {
@@ -188,12 +167,15 @@ class AddProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                                 loadingDialog.show()
                             }
                             is Response.Success -> {
-                                ToastMessage.message(this, it.data?.sMessage.toString())
+                                //ToastMessage.message(this, it.data?.sMessage.toString())
+                                Common().successDialog(this,"Project added successfully")
+                                clearViewModel()
                                 loadingDialog.dismiss()
                             }
                             is Response.Error -> {
                                 ToastMessage.message(this, it.errorMessage.toString())
                                 loadingDialog.dismiss()
+                                clearViewModel()
                             }
                         }
                     })
@@ -337,7 +319,21 @@ class AddProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val hr = hours % 24
         println("DAY==" + days)
 
-        binding.txtAgreedTime.text = days.toString() + " d " /*+ hr.toString() + " h "*/
+
+        val formatter = SimpleDateFormat("dd-MM-yyyy")
+        var count = 0
+        try {
+            val d1 = formatter.parse(strStartDate)
+            val d2 = formatter.parse(strDeliveryDate)
+            count = saturdaySundayCount(d1, d2)
+            val totalDays = days - count
+           // binding.txtAgreedTime.text = totalDays.toString() + " d " /*+ hr.toString() + " h "*/
+
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+
 
     }
 
@@ -363,6 +359,35 @@ class AddProjectActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             return false
         }
         return true
+    }
+
+
+
+    fun saturdaySundayCount(d1: Date?, d2: Date?): Int {
+        val c1 = Calendar.getInstance()
+        c1.time = d1
+        val c2 = Calendar.getInstance()
+        c2.time = d2
+        var sundays = 0
+        var saturday = 0
+        while (!c1.after(c2)) {
+            if (c1[Calendar.DAY_OF_WEEK] === Calendar.SATURDAY) {
+                saturday++
+            }
+            if (c1[Calendar.DAY_OF_WEEK] === Calendar.SUNDAY) {
+                sundays++
+            }
+            c1.add(Calendar.DATE, 1)
+        }
+        println("Saturday Count = $saturday")
+        println("Sunday Count = $sundays")
+        return saturday + sundays
+    }
+
+
+    //CLEAR VIEW MODEL IF LIVE DATA IS AVAILABLE
+    fun clearViewModel() {
+        this.viewModelStore.clear()
     }
 
 }

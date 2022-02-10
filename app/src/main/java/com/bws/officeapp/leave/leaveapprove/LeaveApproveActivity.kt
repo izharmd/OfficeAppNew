@@ -1,5 +1,6 @@
 package com.bws.officeapp.leave.leaveapprove
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -42,7 +43,19 @@ class LeaveApproveActivity : AppCompatActivity() {
         binding.txtDayOfLeave.text = sharePref.getValueString("DAY_OF_LEAVE")
         binding.txtLeaveFrom.text = sharePref.getValueString("LEAVE_FROM")
         binding.txtLeaveTo.text = sharePref.getValueString("LEAVE_TO")
-        binding.txtLeaveStatus.text = sharePref.getValueString("REASON")
+        binding.txtLeaveStatus.text = sharePref.getValueString("LEAVE_STATUS")
+        binding.edtReason.setText(sharePref.getValueString("REASON"))
+
+
+        val status = sharePref.getValueString("LEAVE_STATUS")
+
+        if (status?.equals("Pending") == true) {
+            binding.txtLeaveStatus.setTextColor(Color.parseColor("#ebc034"));
+        } else if(status?.equals("Rejected") == true){
+            binding.txtLeaveStatus.setTextColor(Color.parseColor("#ed1a2e"));
+        }else {
+            binding.txtLeaveStatus.setTextColor(Color.parseColor("#088C08"));
+        }
 
         clickEvent()
     }

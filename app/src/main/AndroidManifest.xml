@@ -125,6 +125,9 @@
 
         <activity android:name=".login.LoginTestActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".policy.ViewPolicyActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

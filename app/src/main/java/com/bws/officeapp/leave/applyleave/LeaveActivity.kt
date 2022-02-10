@@ -105,23 +105,7 @@ class LeaveActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         binding.txtFromDate.setOnClickListener {
             Common().dateDialog(this, binding.txtFromDate)
-            //  binding.txtFromDate.text = dt
 
-            /* year = calendar.get(Calendar.YEAR)
-             month = calendar.get(Calendar.MONTH)
-             day = calendar.get(Calendar.DAY_OF_MONTH)
-             val dialog = DatePickerDialog(this, { _, year, month, day_of_month ->
-                 calendar[Calendar.YEAR] = year
-                 calendar[Calendar.MONTH] = month - 1
-                 calendar[Calendar.DAY_OF_MONTH] = day_of_month
-                 val myFormat = "dd-MM-yyyy"
-                 val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-                 binding.txtFromDate.text = sdf.format(calendar.time)
-             }, calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH])
-            // dialog.datePicker.minDate = calendar.timeInMillis
-            // calendar.add(Calendar.YEAR, 0)
-            // dialog.datePicker.maxDate = calendar.timeInMillis
-             dialog.show()*/
         }
 
         binding.txtToDate.setOnClickListener {
@@ -210,7 +194,8 @@ class LeaveActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 }
                 is Response.Success -> {
                     loadingDialog.dismiss()
-                    ToastMessage.message(this, it.data?.sMessage.toString())
+                    Common().successDialog(this,"Applied leave has been successful.")
+                    finish()
                     clearViewModel()
                 }
                 is Response.Error -> {

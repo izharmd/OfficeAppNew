@@ -16,9 +16,7 @@ class DashboardOfficeAppActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard_office)
         supportActionBar?.hide()
-        DateHeader().dateToHeader(this, textDate, textUserName,
-            resources.getText(R.string.WELCOME_TO_LEAVE_APP).toString()
-        )
+        DateHeader().dateToHeader(this, textDate, textUserName,"Internal Office App")
 
         cardViewExpenseApp.setOnClickListener(){
             startActivity(Intent(this@DashboardOfficeAppActivity,ExpenseOverViewActivity::class.java))
