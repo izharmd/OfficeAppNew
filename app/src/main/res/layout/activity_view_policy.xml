@@ -4,6 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/toolba_reminder"></include>
+
+    <TextView
+        android:id="@+id/txtDocHeader"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@color/base_color"
+        android:gravity="center"
+        android:text="Policy Document"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"/>
+
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"

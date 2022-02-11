@@ -62,10 +62,7 @@ import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class CalendarActivity extends AppCompatActivity {
-
     private MyDynamicCalendar myCalendar;
-
-
     TextView textUserName,textDate;
     ImageView imv_Shutdown,imvBack;
 

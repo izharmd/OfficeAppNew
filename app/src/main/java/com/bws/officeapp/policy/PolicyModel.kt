@@ -1,3 +1,3 @@
 package com.bws.officeapp.policy
 
-data class PolicyModel(val policyImage:Int,val policy:String)
+data class PolicyModel(val policyImage:Int,val policy:String,val policyPdf:String)

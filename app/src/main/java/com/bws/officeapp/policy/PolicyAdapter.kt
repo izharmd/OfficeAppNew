@@ -1,5 +1,6 @@
 package com.bws.officeapp.policy
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,12 +9,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bws.officeapp.R
+import com.bws.officeapp.utils.SharedPreference
 
-class PolicyAdapter(val mList: ArrayList<PolicyModel>) :
+class PolicyAdapter(val activity: Context,val mList: ArrayList<PolicyModel>) :
     RecyclerView.Adapter<PolicyAdapter.ViewHolder>() {
 
     private var context: Context? = null
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -27,13 +28,15 @@ class PolicyAdapter(val mList: ArrayList<PolicyModel>) :
         val policyModel = mList[position]
         holder.txtPolicyDocument.text = policyModel.policy
 
-
-      //  if(position == 0){
+        val sharePref = SharedPreference(activity)
 
             holder.itemView.setOnClickListener(){
+
+                sharePref.saveString("POLICY_DOCUMENT",policyModel.policyPdf)
+                sharePref.saveString("POLICY_NAME",policyModel.policy)
                 context?.startActivity(Intent(context,ViewPolicyActivity::class.java))
             }
-       // }
+
     }
 
     override fun getItemCount(): Int {
