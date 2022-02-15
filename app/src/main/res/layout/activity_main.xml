@@ -12,10 +12,10 @@
         android:layout_height="@dimen/_50sdp"
         android:background="@color/base_color_reminder"
         android:gravity="center"
-        android:text="Dashboard Leave App"
+        android:text="Dashboard Leave Management"
         android:textColor="@color/white"
         android:textSize="@dimen/_16sdp"
-        android:textStyle="bold"></TextView>
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/applay_leave"></ImageView>
+                    android:src="@drawable/leave_apply_pink"></ImageView>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/leave_status_new"></ImageView>
+                    android:src="@drawable/leave_status_pink"></ImageView>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/leave_summery"></ImageView>
+                    android:src="@drawable/leave_summery_pink"></ImageView>
 
                 <TextView
                     android:layout_width="match_parent"

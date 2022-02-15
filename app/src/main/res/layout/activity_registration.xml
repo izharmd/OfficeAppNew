@@ -19,11 +19,59 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_110sdp"
                 android:layout_gravity="center"
-                android:background="@drawable/new_registration" />
+                android:background="@drawable/bg_top">
+
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView14"
+                    app:layout_constraintHorizontal_bias="0.17"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/app_icon_512" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="36dp"
+                    android:text="WELCOME TO "
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="36dp"
+                    android:text="OFFICE APP"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_24sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="New Registration"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <EditText
@@ -159,7 +207,7 @@
                     android:paddingLeft="@dimen/_5sdp"
                     android:text="Date Of Joining"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_14sdp"/>
+                    android:textSize="@dimen/_14sdp" />
 
 
                 <TextView
@@ -216,8 +264,8 @@
                         android:layout_weight=".5"
                         android:backgroundTint="@color/base_color"
                         android:buttonTint="@color/base_color"
-                        android:text="Male"
                         android:checked="true"
+                        android:text="Male"
                         android:textColor="@color/black" />
 
                     <RadioButton
@@ -263,7 +311,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-               android:background="@color/base_color"
+                android:background="@color/base_color"
                 android:text="REGISTER"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp"

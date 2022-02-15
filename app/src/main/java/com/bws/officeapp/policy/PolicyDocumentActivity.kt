@@ -20,11 +20,11 @@ class PolicyDocumentActivity:AppCompatActivity() {
         recyPolicyDocument.layoutManager = LinearLayoutManager(this)
 
         val data  = ArrayList<PolicyModel>()
-        data.add(PolicyModel(R.drawable.policy,"Leave Policy","leave_policy.pdf"))
-        data.add(PolicyModel(R.drawable.policy,"Employee Provident Fund","pf.pdf"))
-        data.add(PolicyModel(R.drawable.policy,"Employee Wages","wages.pdf"))
-        data.add(PolicyModel(R.drawable.policy,"Gratuity Policy","gratuity.pdf"))
-        data.add(PolicyModel(R.drawable.policy,"Work from Home Policy","wfh.pdf"))
+        data.add(PolicyModel(R.drawable.policy_pink,"Leave Policy","leave_policy.pdf"))
+        data.add(PolicyModel(R.drawable.policy_pink,"Employee Provident Fund","pf.pdf"))
+        data.add(PolicyModel(R.drawable.policy_pink,"Employee Wages","wages.pdf"))
+        data.add(PolicyModel(R.drawable.policy_pink,"Gratuity Policy","gratuity.pdf"))
+        data.add(PolicyModel(R.drawable.policy_pink,"Work from Home Policy","wfh.pdf"))
        // data.add(PolicyModel(R.drawable.policy,"Performance Management and Appraisal"))
 
         val adapter = PolicyAdapter(this,data)

@@ -1,10 +1,12 @@
 package com.bws.officeapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bws.officeapp.databinding.ActivityProfile2Binding
 import com.bws.officeapp.expense.utils.MyPopUpMenu
+import com.bws.officeapp.profile.EditProfileActivity
 import com.bws.officeapp.utils.DateHeader
 import com.bws.officeapp.utils.SharedPreference
 import kotlinx.android.synthetic.main.toolba_reminder.*
@@ -35,6 +37,10 @@ class ProfileActivity : AppCompatActivity() {
         binding.txtEmail.text = sharePref.getValueString("KEY_EMAIL_ID")
         binding.txtDOB.text = sharePref.getValueString("KEY_DOB")
         binding.txtMobileNo.text = sharePref.getValueString("KEY_MOBILE")
+
+        binding.btnEditProfile.setOnClickListener(){
+            startActivity(Intent(this@ProfileActivity,EditProfileActivity::class.java))
+        }
 
         //Use for side popup menu
         MyPopUpMenu().populateMenuLeave(this,imv_Shutdown)

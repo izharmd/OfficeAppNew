@@ -22,6 +22,7 @@ import com.bws.officeapp.utils.LoadingDialog
 import com.bws.officeapp.utils.Response
 import com.bws.officeapp.utils.SharedPreference
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_leave_status.*
 import kotlinx.android.synthetic.main.toolba_reminder.*
 import java.util.ArrayList
@@ -49,6 +50,10 @@ class LeaveStatusActivity : AppCompatActivity() {
                 ), this
             )
         ).get(LeaveStatusViewModel::class.java)
+
+        val gson = Gson()
+        System.out.println("LEAVE STATUS JSON==="+gson.toJson(pram))
+
         val loadingDialog = LoadingDialog.progressDialog(this)
         leaveStatusVM.liveData.observe(this, Observer {
 

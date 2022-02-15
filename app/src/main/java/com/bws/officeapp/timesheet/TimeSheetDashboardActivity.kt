@@ -55,6 +55,10 @@ class TimeSheetDashboardActivity:AppCompatActivity() {
             startActivity(Intent(this@TimeSheetDashboardActivity,ProjectStatusActvity::class.java))
         }
 
+        cardViewAddEmp.setOnClickListener(){
+            startActivity(Intent(this@TimeSheetDashboardActivity,AddEmployeeTestActivity::class.java))
+        }
+
         imvBack.setOnClickListener(){
             finish()
         }

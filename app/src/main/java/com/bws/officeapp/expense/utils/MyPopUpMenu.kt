@@ -88,7 +88,7 @@ class MyPopUpMenu {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Office App")
         builder.setMessage("Are you sure want to logout?")
-        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+        builder.setPositiveButton("Yes") { dialog, which ->
 
             val i = Intent(
                 context,
@@ -102,7 +102,7 @@ class MyPopUpMenu {
             dialog.cancel()
         }
 
-        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+        builder.setNegativeButton("No") { dialog, which ->
 
         }
         builder.show()

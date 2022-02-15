@@ -18,11 +18,16 @@ data class Leave(
     val DaysOfLeave: Double,
     val FirstName: String,
     val LastName: String,
+    val EmailID: String,
     val LeaveFrom: String,
     val LeaveTo: String,
     val Reason: String,
     val SlNo: Int,
     val Title: String,
+    val LeaveReason: String,
+    val LeaveCategoryName: String,
+    val ApprovedBy: String,
+    val LeaveID: Int,
     val UserID: Int
 )
 

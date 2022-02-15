@@ -34,7 +34,8 @@ class LeaveApproveActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_leave_approve)
         actionBar?.hide()
         sharePref = SharedPreference(this)
-        DateHeader().dateToHeader(this, textDate, textUserName,
+        DateHeader().dateToHeader(
+            this, textDate, textUserName,
             resources.getText(R.string.WELCOME_TO_LEAVE_APP).toString()
         )
 
@@ -44,16 +45,16 @@ class LeaveApproveActivity : AppCompatActivity() {
         binding.txtLeaveFrom.text = sharePref.getValueString("LEAVE_FROM")
         binding.txtLeaveTo.text = sharePref.getValueString("LEAVE_TO")
         binding.txtLeaveStatus.text = sharePref.getValueString("LEAVE_STATUS")
-        binding.edtReason.setText(sharePref.getValueString("REASON"))
+        binding.edtReason.setText(sharePref.getValueString("LEAVE_REASON"))
 
 
         val status = sharePref.getValueString("LEAVE_STATUS")
 
         if (status?.equals("Pending") == true) {
             binding.txtLeaveStatus.setTextColor(Color.parseColor("#ebc034"));
-        } else if(status?.equals("Rejected") == true){
+        } else if (status?.equals("Rejected") == true) {
             binding.txtLeaveStatus.setTextColor(Color.parseColor("#ed1a2e"));
-        }else {
+        } else {
             binding.txtLeaveStatus.setTextColor(Color.parseColor("#088C08"));
         }
 
@@ -63,19 +64,19 @@ class LeaveApproveActivity : AppCompatActivity() {
     private fun clickEvent() {
         binding.txtReject.setOnClickListener {
             IsApproved = "N"
-            leaveApproveReject()
+            leaveApproveReject("Leave Rejected")
         }
 
         binding.txtApprove.setOnClickListener {
             IsApproved = "Y"
-            leaveApproveReject()
+            leaveApproveReject("Leave Approved")
         }
     }
 
-    private fun leaveApproveReject() {
+    private fun leaveApproveReject(leaveStatusMsg: String) {
         val pram = Param.PramApproveLeave(
             sharePref.getValueString("EMPLOYEE_ID").toString(),
-            "1",
+            sharePref.getValueString("LEAVE_ID").toString(),
             IsApproved,
             binding.edtReason.text.toString()
         )
@@ -90,7 +91,7 @@ class LeaveApproveActivity : AppCompatActivity() {
         ).get(LeaveApproveViewModel::class.java)
 
         val gson = Gson()
-        System.out.println("APPROVE JSON"+gson.toJson(pram))
+        System.out.println("APPROVE JSON" + gson.toJson(pram))
 
         val loadingDialog = LoadingDialog.progressDialog(this)
 
@@ -105,7 +106,7 @@ class LeaveApproveActivity : AppCompatActivity() {
                 }
                 is Response.Success -> {
                     loadingDialog.dismiss()
-                    ToastMessage.message(this,it.data?.sMessage.toString())
+                    Common().successDialog(this, leaveStatusMsg)
                     clearViewModel()
                 }
                 is Response.Error -> {

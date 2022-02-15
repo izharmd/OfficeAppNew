@@ -231,7 +231,7 @@ public class LoginTestActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(LoginTestActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_forgot_password);
-        dialog.setCancelable(true);
+        dialog.setCancelable(false);
         Window window = dialog.getWindow();
         window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
@@ -251,7 +251,12 @@ public class LoginTestActivity extends AppCompatActivity {
         btnSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callSendEmail(edtEmailChangePass.getText().toString());
+
+                if(edtEmailChangePass.getText().toString().length() == 0) {
+                    edtEmailChangePass.setError("Enter email id");
+                }else {
+                    callSendEmail(edtEmailChangePass.getText().toString());
+                }
             }
         });
 
@@ -261,9 +266,9 @@ public class LoginTestActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(edtEmailChangePass.getText().toString())){
                     edtEmailChangePass.setError("Email required");
                 }else if(TextUtils.isEmpty(edtResetPassword.getText().toString())){
-                    edtResetPassword.setError("Email required");
+                    edtResetPassword.setError("Enter new  password");
                 }else if(TextUtils.isEmpty(edtOTP.getText().toString())){
-                    edtOTP.setError("Email required");
+                    edtOTP.setError("Enter OTP");
                 }else {
                     callResetPassword(edtEmailChangePass.getText().toString(), edtResetPassword.getText().toString(), edtOTP.getText().toString());
                 }

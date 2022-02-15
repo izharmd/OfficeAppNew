@@ -67,6 +67,12 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
@@ -79,13 +85,14 @@
                 android:src="@drawable/ic_emp_name"></ImageView>
 
             <TextView
-                style="@style/textView"
+                style="@style/textView1"
                 android:text="Employee Name"></TextView>
 
-            <TextView
-                android:id="@+id/txtName"
-                style="@style/textView_2"
-                android:text="Mr James"></TextView>
+            <EditText
+                android:id="@+id/edtEmpName"
+                style="@style/editText_2"
+                android:background="@drawable/round_edit_text"></EditText>
+
         </LinearLayout>
 
         <View style="@style/View_1" />
@@ -93,8 +100,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
             android:weightSum="1">
 
             <ImageView
@@ -102,14 +114,13 @@
                 android:src="@drawable/ic_emp_id"></ImageView>
 
             <TextView
-                style="@style/textView"
+                style="@style/textView1"
                 android:text="Employee Id"></TextView>
 
             <TextView
                 android:id="@+id/txtEmpId"
-                style="@style/textView_2"
-                android:text="10047"
-                android:textColor="@color/black"></TextView>
+                style="@style/editText_2"
+                android:background="@drawable/round_edit_text"></TextView>
         </LinearLayout>
 
         <View style="@style/View_1" />
@@ -118,6 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
             android:weightSum="1">
 
             <ImageView
@@ -125,13 +137,14 @@
                 android:src="@drawable/ic_emp_designation"></ImageView>
 
             <TextView
-                style="@style/textView"
+                style="@style/textView1"
                 android:text="Designation"></TextView>
 
-            <TextView
-                android:id="@+id/txtDesignation"
-                style="@style/textView_2"
-                android:text="Software Developer"></TextView>
+            <EditText
+                android:id="@+id/edtEmpDesignation"
+                style="@style/editText_2"
+                android:background="@drawable/round_edit_text"></EditText>
+
         </LinearLayout>
 
         <View style="@style/View_1" />
@@ -140,6 +153,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
             android:weightSum="1">
 
             <ImageView
@@ -147,13 +161,13 @@
                 android:src="@drawable/ic_emp_joining_date"></ImageView>
 
             <TextView
-                style="@style/textView"
+                style="@style/textView1"
                 android:text="Joining Date"></TextView>
 
             <TextView
-                android:id="@+id/txtDateOfJoining"
-                style="@style/textView_2"
-                android:text="12 May 2015"></TextView>
+                android:id="@+id/extDOJ"
+                style="@style/editText_2"
+                android:background="@drawable/round_edit_text"></TextView>
         </LinearLayout>
 
         <View style="@style/View_1" />
@@ -163,6 +177,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
             android:weightSum="1">
 
             <ImageView
@@ -170,13 +185,13 @@
                 android:src="@drawable/ic_email_id"></ImageView>
 
             <TextView
-                style="@style/textView"
+                style="@style/textView1"
                 android:text="Email Id"></TextView>
 
-            <TextView
-                android:id="@+id/txtEmail"
-                style="@style/textView_2"
-                android:text="james@bitwavesolution.com"></TextView>
+            <EditText
+                android:id="@+id/edtEmailID"
+                style="@style/editText_2"
+                android:background="@drawable/round_edit_text"></EditText>
         </LinearLayout>
 
 
@@ -187,6 +202,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
             android:weightSum="1">
 
             <ImageView
@@ -194,13 +210,13 @@
                 android:src="@drawable/ic_emp_dob"></ImageView>
 
             <TextView
-                style="@style/textView"
+                style="@style/textView1"
                 android:text="Date of Birth"></TextView>
 
             <TextView
                 android:id="@+id/txtDOB"
-                style="@style/textView_2"
-                android:text="20 Dec 1980"></TextView>
+                style="@style/editText_2"
+                android:background="@drawable/round_edit_text"></TextView>
         </LinearLayout>
 
         <View style="@style/View_1" />
@@ -209,6 +225,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
             android:weightSum="1">
 
             <ImageView
@@ -216,30 +233,61 @@
                 android:src="@drawable/ic_emp_mobile_no"></ImageView>
 
             <TextView
-                style="@style/textView"
+                style="@style/textView1"
                 android:text="Mobile No"></TextView>
 
-            <TextView
-                android:id="@+id/txtMobileNo"
-                style="@style/textView_2"
-                android:text="9163252224"></TextView>
+            <EditText
+                android:id="@+id/edtMobileNo"
+                style="@style/editText_2"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:background="@drawable/round_edit_text"></EditText>
         </LinearLayout>
 
 
         <View style="@style/View_1" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnEditProfile"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/base_color"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:text="Edit Profile"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:textAllCaps="false"></androidx.appcompat.widget.AppCompatButton>
+            android:layout_marginTop="@dimen/_20sdp"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
+
+            <TextView
+                android:id="@+id/txtCancel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_cancle_button"
+                android:gravity="center"
+                android:text="Cancle"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:visibility="invisible"></TextView>
+
+
+            <TextView
+                android:id="@+id/txtSave"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_button_ripple"
+                android:gravity="center"
+                android:text="Update Profile"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp" />
+        </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 </layout>

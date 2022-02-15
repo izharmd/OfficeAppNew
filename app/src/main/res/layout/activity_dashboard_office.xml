@@ -45,14 +45,14 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/leave_management"></ImageView>
+                    android:src="@drawable/leave_management_pink"></ImageView>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:gravity="center"
-                    android:text="Leave management"
+                    android:text="Leave Management"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold"></TextView>
@@ -83,7 +83,7 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/timesheet"></ImageView>
+                    android:src="@drawable/timesheet_pink"></ImageView>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/expense"></ImageView>
+                    android:src="@drawable/expense_pink"></ImageView>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -170,7 +170,7 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/profile_new"></ImageView>
+                    android:src="@drawable/profile_pink"></ImageView>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -216,7 +216,7 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/policy"></ImageView>
+                    android:src="@drawable/policy_pink"></ImageView>
 
                 <TextView
                     android:layout_width="match_parent"

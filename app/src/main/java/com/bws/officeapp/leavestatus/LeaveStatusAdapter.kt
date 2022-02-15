@@ -34,6 +34,7 @@ class LeaveStatusAdapter(val activity: Activity, val mList: Response<LeaveStatus
         val txtCount: TextView = itemView.findViewById(R.id.txtCount);
         val txtDetails: TextView = itemView.findViewById(R.id.txtDetails);
         val ll_reason: LinearLayout = itemView.findViewById(R.id.ll_reason);
+        val ll_approvedBy: LinearLayout = itemView.findViewById(R.id.ll_approvedBy);
 
     }
 
@@ -61,10 +62,13 @@ class LeaveStatusAdapter(val activity: Activity, val mList: Response<LeaveStatus
         val str = itemLeave?.ApprovalStatus
         if (str?.equals("Pending") == true) {
             holder.txtLeaveStatus.setTextColor(Color.parseColor("#ebc034"));
+            holder.ll_reason.visibility = View.VISIBLE
         } else if(str?.equals("Rejected") == true){
             holder.txtLeaveStatus.setTextColor(Color.parseColor("#ed1a2e"));
+            holder.ll_reason.visibility = View.VISIBLE
         }else {
             holder.txtLeaveStatus.setTextColor(Color.parseColor("#088C08"));
+            holder.ll_reason.visibility = View.GONE
         }
 
         val rollId = sharePref.getValueString("KEY_ROLL_ID")
@@ -78,7 +82,9 @@ class LeaveStatusAdapter(val activity: Activity, val mList: Response<LeaveStatus
                 sharePref.saveString("LEAVE_FROM",itemLeave?.LeaveFrom.toString())
                 sharePref.saveString("LEAVE_TO",itemLeave?.LeaveTo.toString())
                 sharePref.saveString("REASON",itemLeave?.Reason.toString())
+                sharePref.saveString("LEAVE_REASON",itemLeave?.LeaveReason.toString())
                 sharePref.saveString("LEAVE_STATUS",itemLeave?.ApprovalStatus.toString())
+                sharePref.saveString("LEAVE_ID",itemLeave?.LeaveID.toString())
 
                 context?.startActivity(Intent(context,LeaveApproveActivity::class.java))
             }
@@ -86,17 +92,21 @@ class LeaveStatusAdapter(val activity: Activity, val mList: Response<LeaveStatus
 
         if (rollId == "1") { //DIRECTOR
             holder.txtDetails.visibility = View.VISIBLE
-            holder.ll_reason.visibility = View.VISIBLE
+           // holder.ll_reason.visibility = View.VISIBLE
+            holder.ll_approvedBy.visibility = View.GONE
 
         } else if (rollId == "2") { //EMPLOYEE
             holder.txtDetails.visibility = View.GONE
             holder.ll_reason.visibility = View.GONE
+            holder.ll_approvedBy.visibility = View.GONE
         } else if (rollId == "3") { //HR
             holder.txtDetails.visibility = View.GONE
             holder.ll_reason.visibility = View.GONE
+            holder.ll_approvedBy.visibility = View.GONE
         } else if (rollId == "4") {//MANAGER
             holder.txtDetails.visibility = View.GONE
             holder.ll_reason.visibility = View.GONE
+            holder.ll_approvedBy.visibility = View.VISIBLE
         }
 
     }

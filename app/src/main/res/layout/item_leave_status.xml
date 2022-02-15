@@ -273,6 +273,42 @@
 
         </LinearLayout>
 
+
+        <LinearLayout
+            android:id="@+id/ll_approvedBy"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_3sdp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".8"
+                android:background="@drawable/round_textview2"
+                android:gravity="center|left"
+                android:paddingLeft="@dimen/_5sdp"
+                android:text="Approved By"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"/>
+
+
+            <TextView
+                android:id="@+id/txtApprovedBy"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:gravity="center|left"
+                android:paddingLeft="@dimen/_10sdp"
+                android:text="14C1686"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/txtDetails"
             android:layout_width="@dimen/_100sdp"

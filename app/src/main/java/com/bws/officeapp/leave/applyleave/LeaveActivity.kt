@@ -71,34 +71,9 @@ class LeaveActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         sharePref = SharedPreference(this)
         calendar = Calendar.getInstance()
 
-
-
         initView()
 
         clickEvent()
-
-        imv_Shutdown.setOnClickListener {
-            val popupMenu: PopupMenu = PopupMenu(this, imv_Shutdown)
-            popupMenu.menuInflater.inflate(R.menu.menu, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-                when (item.itemId) {
-                    R.id.setting ->
-                        startActivity(
-                            Intent(
-                                applicationContext,
-                                ProfileActivity::class.java
-                            )
-                        )
-                    R.id.logOut ->
-                        // LogOut().closeAllActivity(applicationContext)
-
-                        Log.d("qwe", "qewrt")
-
-                }
-                true
-            })
-            popupMenu.show()
-        }
     }
 
     private fun clickEvent() {

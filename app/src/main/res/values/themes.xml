@@ -31,7 +31,16 @@
         <item name="android:textSize">@dimen/_12sdp</item>
         <item name="android:layout_weight">.4</item>
         <item name="android:paddingLeft">@dimen/_5sdp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
 
+    <style name="textView1">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:layout_weight">.35</item>
+        <item name="android:paddingLeft">@dimen/_5sdp</item>
         <item name="android:layout_gravity">center</item>
     </style>
 
@@ -42,7 +51,17 @@
         <item name="android:textSize">@dimen/_12sdp</item>
         <item name="android:layout_weight">.55</item>
         <item name="android:paddingLeft">@dimen/_5sdp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
 
+    <style name="editText_2">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/_30sdp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:layout_weight">.6</item>
+        <item name="android:paddingLeft">@dimen/_5sdp</item>
+        <item name="android:layout_marginRight">@dimen/_5sdp</item>
         <item name="android:layout_gravity">center</item>
     </style>
 
