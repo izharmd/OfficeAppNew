@@ -11,19 +11,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp"
-        android:background="#000000FF">
+        android:layout_height="@dimen/_35sdp"
+        android:background="@color/base_color">
 
         <TextView
-            android:text="Office App"
             android:id="@+id/q"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/imv_cross"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textSize="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:text="Office App"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintEnd_toStartOf="@+id/imv_cross"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></TextView>
 
         <ImageView

@@ -120,6 +120,8 @@
             <TextView
                 android:id="@+id/txtEmpId"
                 style="@style/editText_2"
+                android:gravity="left|center"
+                android:text="asdf"
                 android:background="@drawable/round_edit_text"></TextView>
         </LinearLayout>
 
@@ -143,6 +145,7 @@
             <EditText
                 android:id="@+id/edtEmpDesignation"
                 style="@style/editText_2"
+                android:text="werty"
                 android:background="@drawable/round_edit_text"></EditText>
 
         </LinearLayout>
@@ -167,6 +170,7 @@
             <TextView
                 android:id="@+id/extDOJ"
                 style="@style/editText_2"
+                android:gravity="left|center"
                 android:background="@drawable/round_edit_text"></TextView>
         </LinearLayout>
 
@@ -191,6 +195,7 @@
             <EditText
                 android:id="@+id/edtEmailID"
                 style="@style/editText_2"
+                android:text="werty"
                 android:background="@drawable/round_edit_text"></EditText>
         </LinearLayout>
 
@@ -216,6 +221,8 @@
             <TextView
                 android:id="@+id/txtDOB"
                 style="@style/editText_2"
+                android:text="werty"
+                android:gravity="left|center"
                 android:background="@drawable/round_edit_text"></TextView>
         </LinearLayout>
 
@@ -241,6 +248,7 @@
                 style="@style/editText_2"
                 android:inputType="phone"
                 android:maxLength="10"
+                android:text="12345"
                 android:background="@drawable/round_edit_text"></EditText>
         </LinearLayout>
 

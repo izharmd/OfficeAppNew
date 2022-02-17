@@ -79,8 +79,8 @@
 
 
     <style name="icon_view">
-        <item name="android:layout_width">@dimen/_15sdp</item>
-        <item name="android:layout_height">@dimen/_15sdp</item>
+        <item name="android:layout_width">@dimen/_20sdp</item>
+        <item name="android:layout_height">@dimen/_20sdp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_weight">.05</item>
 
